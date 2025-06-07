@@ -37,7 +37,7 @@
     main.batの中身
     ```
     cd dist
-    main.exe 'csv_folder'
+    main.exe "../csv_folder"
     pause
     ```
 
