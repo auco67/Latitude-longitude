@@ -4,15 +4,7 @@
 
 住所から取得する`get_longitude_and_latitude_from_address.py`と郵便番号から取得する`get_longitude_and_latitude_from_zip_code.py`の２つのスクリプトを用意した
 
-## 住所から緯度経度データを取得する
-
-### get_longitude_and_latitude_from_address.py
-
-住所から経度、緯度を取得するツール
-
-※緯度経度データは、[Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview?hl=ja)の[geocode.address.geocodeAddress](https://developers.google.com/maps/documentation/geocoding/reference/rest/v4beta/geocode.address/geocodeAddress?hl=ja&_gl=1*11f1tbk*_up*MQ..*_ga*ODU4Mjk4ODI3LjE3NDkzNTU5MjU.*_ga_NRWSTWS78N*czE3NDkzNjY5MTIkbzMkZzAkdDE3NDkzNjY5MTIkajYwJGwwJGgw)を使用して取得する。
-
-### 前提作業
+## 前提作業
 
 Google Cloud プロジェクトをセットアップする
 
@@ -23,6 +15,14 @@ Google Cloud プロジェクトをセットアップする
 
 3. API を有効にしAPIキーを取得する
 4. API キーの制限する
+
+## 住所から緯度経度データを取得する
+
+### get_longitude_and_latitude_from_address.py
+
+住所から経度、緯度を取得するツール
+
+使用API：[Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview?hl=ja)の[geocode.address.geocodeAddressQuery](https://developers.google.com/maps/documentation/geocoding/reference/rest/v4beta/geocode.address/geocodeAddressQuery?hl=ja&_gl=1*25slz2*_up*MQ..*_ga*MTYxNjg5NTkwNy4xNzQ5MzcwNDI2*_ga_NRWSTWS78N*czE3NDkzNzczMjUkbzIkZzEkdDE3NDkzNzczMzEkajU0JGwwJGgw)
 
 ### 使用方法（Windowsの場合）
 
@@ -51,6 +51,50 @@ Google Cloud プロジェクトをセットアップする
     ```
     cd dist
     get_longitude_and_latitude_from_address.exe "../csv_folder/address.csv"
+    pause
+    ```
+
+    ※フォルダ名が`csv_folder`以外にする場合は、`main.bat`の中身も修正する必要がある
+
+    ※数件のデータの場合長時間掛かる
+
+    実行後は、同じCSVファイル名で上書きされる
+
+## 緯度経度データから住所を取得する
+
+### get_address_from_longitude_and_latitude.py
+
+経度、緯度から住所を取得するツール
+
+使用API：[Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview?hl=ja)の[geocode.location.geocodeLocationQuery](https://developers.google.com/maps/documentation/geocoding/reference/rest/v4beta/geocode.location/geocodeLocationQuery?hl=ja&_gl=1*1gjlyv1*_up*MQ..*_ga*MTYxNjg5NTkwNy4xNzQ5MzcwNDI2*_ga_NRWSTWS78N*czE3NDkzNzczMjUkbzIkZzEkdDE3NDkzNzczMjckajU4JGwwJGgw)
+
+### 使用方法（Windowsの場合）
+
+1. githubからリポジトリをgit cloneする
+    ```
+    git clone https://github.com/auco67/Latitude-longitude.git
+    ```
+
+2. csvファイルを格納するフォルダ`csv_folder`を作成しCSVファイルを格納する
+    ```
+    latitude-longitude
+    ├─csv_folder
+    |  ├─sample
+    |  |  ├─location.csv 
+    ```
+
+    CSVファイルの項目構成は次の通り
+
+    |No|住所１|住所２|郵便番号|緯度|経度|
+    |--|--|--|--|--|--|
+    |1||||35.6585696|139.745484|
+
+3. from_address.batを実行する
+
+    from_loation.batの中身
+    ```
+    cd dist
+    get_address_from_longitude_and_latitude.exe "../csv_folder/location.csv"
     pause
     ```
 
