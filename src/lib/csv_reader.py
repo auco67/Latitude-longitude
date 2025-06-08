@@ -13,6 +13,10 @@ class CsvReader:
         Returns:
             df_csv(pd.DataFrame): データフレーム
         """
-        csv_file = self._csv_file
-        df_csv = pd.read_csv(csv_file).fillna('')
-        return df_csv
+        try:
+            csv_file = self._csv_file
+            df_csv = pd.read_csv(csv_file).fillna('')
+            return df_csv
+        
+        except Exception as e:
+            print(self.__class__.__name__, e)
