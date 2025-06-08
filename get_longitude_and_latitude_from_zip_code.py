@@ -22,11 +22,13 @@ def main(csv_folder:Path):
             # データフレームの郵便番号からAPIで緯度、経度を調べる
             for index, value in enumerate(df_csv.values):
                 print(value[1], value[2])
-                postal = value[3]
-                
-                json = geoapi.get_town_area_info_json(postal)
-                df_csv.iloc[index, 5] = json["response"]["location"][0]["x"]
-                df_csv.iloc[index, 4] = json["response"]["location"][0]["y"]
+
+                if(value[3]):
+                    postal = value[3]
+                    
+                    json = geoapi.get_town_area_info_json(postal)
+                    df_csv.iloc[index, 5] = json["response"]["location"][0]["x"]
+                    df_csv.iloc[index, 4] = json["response"]["location"][0]["y"]
             
             # CSVファイルに出力する
             df_csv.to_csv(file)
