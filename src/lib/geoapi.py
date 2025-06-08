@@ -31,6 +31,6 @@ class GeoApi:
 
 if __name__ == "__main__":
     geoapi = GeoApi()
-    geoapi.get_town_area_info_list("0640941")
+    geoapi.get_town_area_info_json("0640941")
 
 
