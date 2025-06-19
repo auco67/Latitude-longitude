@@ -18,8 +18,12 @@ def main(csv_file:str):
             if(latitude and longitude):
                 print(latitude, longitude)
                 json = geocode_api.get_address(latitude,longitude)
-                df_csv.iloc[index, 1] = str(json["formattedAddress"]).replace("日本、〒","")[9:]
-                df_csv.iloc[index, 3] = str(json["postalAddress"]["postalCode"]).replace("-","")
+
+                if "formattedAddress" in json and json["formattedAddress"]:
+                    df_csv.iloc[index, 1] = str(json["formattedAddress"]).replace("日本、〒","")[9:]
+                if "postalAddress" in json and json["postalAddress"]:
+                    if "postalCode" in json["postalAddress"]:
+                        df_csv.iloc[index, 3] = str(json["postalAddress"]["postalCode"]).replace("-","")
         
         # CSVファイルに出力する
         df_csv.to_csv(csv_file)
@@ -28,6 +32,6 @@ def main(csv_file:str):
         print(e)
 
 if __name__ == "__main__":
-    # csv_file = "csv_folder/sample/location.csv"
-    csv_file = sys.argv[1]
+    csv_file = "csv_folder/sample/location.csv"
+    # csv_file = sys.argv[1]
     main(csv_file)
